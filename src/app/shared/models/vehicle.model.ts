@@ -9,9 +9,12 @@ export interface Vehicle {
 }
 
 export enum VehicleSortField {
-    PRICE = 'price',
+    MAKE = 'make',
+    MODEL = 'model',
     YEAR = 'year',
-    MILEAGE = 'mileage'
+    PRICE = 'price',
+    MILEAGE = 'mileage',
+    COLOUR = 'colour'
 }
 
 

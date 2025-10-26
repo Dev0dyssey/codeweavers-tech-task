@@ -1,0 +1,128 @@
+<div class="vehicle-list-container">
+    <!-- Header Section -->
+    <mat-card class="header-card">
+        <mat-card-content>
+            <h1>Vehicle Inventory</h1>
+            <p class="subtitle">{{ displayedVehicles().length }} vehicles available</p>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Search Section -->
+    <mat-card class="controls-card">
+        <mat-card-content>
+            <div class="controls-row">
+                <!-- Search Input -->
+                <mat-form-field appearance="outline" class="search-field">
+                    <mat-label>Search vehicles</mat-label>
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input 
+                        matInput 
+                        type="text" 
+                        [formControl]="searchControl"
+                    />
+                    @if (searchControl.value) {
+                        <button matSuffix mat-icon-button (click)="clearSearch()" type="button">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    }
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Sort Buttons Section -->
+    <mat-card class="sort-card">
+        <mat-card-content>
+            <div class="sort-buttons">
+                <button 
+                    class="sort-button"
+                    [class.active]="sortField() === VehicleSortFields.PRICE"
+                    (click)="onSortChange(VehicleSortFields.PRICE)">
+                    <mat-icon>{{ getSortIcon(VehicleSortFields.PRICE) }}</mat-icon>
+                    Price
+                </button>
+
+                <button 
+                    class="sort-button"
+                    [class.active]="sortField() === VehicleSortFields.YEAR"
+                    (click)="onSortChange(VehicleSortFields.YEAR)">
+                    <mat-icon>{{ getSortIcon(VehicleSortFields.YEAR) }}</mat-icon>
+                    Year
+                </button>
+
+                <button 
+                    class="sort-button"
+                    [class.active]="sortField() === VehicleSortFields.MILEAGE"
+                    (click)="onSortChange(VehicleSortFields.MILEAGE)">
+                    <mat-icon>{{ getSortIcon(VehicleSortFields.MILEAGE) }}</mat-icon>
+                    Mileage
+                </button>
+
+                <button 
+                    class="sort-button"
+                    [class.active]="sortField() === VehicleSortFields.MAKE"
+                    (click)="onSortChange(VehicleSortFields.MAKE)">
+                    <mat-icon>{{ getSortIcon(VehicleSortFields.MAKE) }}</mat-icon>
+                    Make
+                </button>
+
+                <button 
+                    class="sort-button"
+                    [class.active]="sortField() === VehicleSortFields.MODEL"
+                    (click)="onSortChange(VehicleSortFields.MODEL)">
+                    <mat-icon>{{ getSortIcon(VehicleSortFields.MODEL) }}</mat-icon>
+                    Model
+                </button>
+
+                <button 
+                    class="sort-button"
+                    [class.active]="sortField() === VehicleSortFields.COLOUR"
+                    (click)="onSortChange(VehicleSortFields.COLOUR)">
+                    <mat-icon>{{ getSortIcon(VehicleSortFields.COLOUR) }}</mat-icon>
+                    Colour
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Results Section -->
+    @if (isEmpty()) {
+        <mat-card class="empty-card">
+            <mat-card-content>
+                <mat-icon class="empty-icon">search_off</mat-icon>
+                <h2>No vehicles found</h2>
+                <p>Try adjusting your search or filters.</p>
+            </mat-card-content>
+        </mat-card>
+    } @else {
+        <!-- Vehicle Grid -->
+        <div class="vehicles-grid">
+            @for (vehicle of displayedVehicles(); track vehicle.id) {
+                <mat-card class="vehicle-card" (click)="navigateToVehicleDetail(vehicle.id)">
+                    <mat-card-content>
+                        <div class="vehicle-info">
+                            <h3 class="vehicle-title">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h3>
+                            <p class="vehicle-colour">{{ vehicle.colour }}</p>
+                            
+                            <div class="detail-section">
+                                <span class="detail-label">Price</span>
+                                <span class="detail-value price-value">{{ vehicle.price | currency:'USD':'symbol':'1.0-0' }}</span>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <span class="detail-label">Mileage</span>
+                                <span class="detail-value">{{ vehicle.mileage | number }} miles</span>
+                            </div>
+                            
+                            <div class="detail-section link-section">
+                                <a class="view-details-link">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            }
+        </div>
+    }
+</div>

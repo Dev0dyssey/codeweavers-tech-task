@@ -6,7 +6,7 @@ import { VEHICLES } from '../../../data/mock/vehicles.mock';
     providedIn: 'root'
 })
 export class VehicleService {
-    private vehicles = signal<Vehicle[]>(VEHICLES);
+    public vehicles = signal<Vehicle[]>(VEHICLES);
     private loading = signal(false);
     private error = signal<string | null>(null);
 
@@ -14,10 +14,6 @@ export class VehicleService {
     readonly hasVehicles = computed(() => this.vehicleCount() > 0);
     readonly isLoading = computed(() => this.loading());
     readonly hasError = computed(() => this.error() !== null);
-
-    getAllVehicled(): Vehicle[] {
-        return this.vehicles();
-    }
 
     getVehicleById(id: string): Vehicle | undefined {
         return this.vehicles().find(vehicle => vehicle.id === id);
@@ -29,7 +25,6 @@ export class VehicleService {
 
         try {
             await new Promise(resolve => setTimeout(resolve, 1000));
-
             this.vehicles.set(VEHICLES);
             return this.vehicles();
         } catch (error) {
@@ -40,12 +35,12 @@ export class VehicleService {
         }
     }
 
-    sortVehicles(field: VehicleSortField, direction: SortDirection): Vehicle[] {
+    sortVehicles(vehicles: Vehicle[], field: VehicleSortField, direction: SortDirection): Vehicle[] {
 
 
-        const sortedVehicles = [...this.vehicles()].sort((a, b) => {
-            let aValue: number;
-            let bValue: number;
+        return [...vehicles].sort((a, b) => {
+            let aValue: number | string;
+            let bValue: number | string;
 
 
             switch (field) {
@@ -61,6 +56,20 @@ export class VehicleService {
                     aValue = a.mileage;
                     bValue = b.mileage;
                     break;
+                case VehicleSortField.MAKE:
+                    aValue = a.make.toLowerCase();
+                    bValue = b.make.toLowerCase();
+                    break;
+                case VehicleSortField.MODEL:
+                    aValue = a.model.toLowerCase();
+                    bValue = b.model.toLowerCase();
+                    break;
+                case VehicleSortField.COLOUR:
+                    aValue = a.colour.toLowerCase();
+                    bValue = b.colour.toLowerCase();
+                    break;
+                default:
+                    throw new Error(`Invalid sort field: ${field}`);
             }
 
             if (direction === SortDirection.ASC) {
@@ -69,21 +78,18 @@ export class VehicleService {
                 return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
             }
         });
-
-        this.vehicles.set(sortedVehicles);
-        return sortedVehicles;
     }
 
     filterVehicles(searchValue: string): Vehicle[] {
-        if(!searchValue.trim()) {
+        if (!searchValue.trim()) {
             return this.vehicles();
         }
 
         const searchValueToLower = searchValue.toLowerCase();
 
-        return this.vehicles().filter(vehicle => {
+        return this.vehicles().filter(vehicle => 
             Object.values(vehicle).some(value => 
                 value.toString().toLowerCase().includes(searchValueToLower))
-        })
+        );
     }
 }

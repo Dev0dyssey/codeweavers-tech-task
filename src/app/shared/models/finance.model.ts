@@ -7,8 +7,8 @@ export interface FinanceQuote {
 }
 
 export interface FinanceCalculationInputs {
-    deposit: number;
-    term: number; // in months
+    readonly deposit: number;
+    readonly term: number; // in months
 }
 
 export interface FinanceCalculationResult {
