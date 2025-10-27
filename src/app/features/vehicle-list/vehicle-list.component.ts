@@ -36,7 +36,7 @@ export class VehicleListComponent {
 
     protected readonly allVehicles = this.vehicleService.vehicles();
     protected searchControl = new FormControl('');
-    protected readonly searchTerm = toSignal(
+    protected readonly searchValue = toSignal(
         this.searchControl.valueChanges.pipe(
             debounceTime(300),
             distinctUntilChanged(),
@@ -51,8 +51,9 @@ export class VehicleListComponent {
     readonly displayedVehicles = computed(() => {
         let vehicles = this.allVehicles;
 
-        if (this.searchTerm().trim()) {
-            vehicles = this.vehicleService.filterVehicles(this.searchTerm());
+        const searchTerm = this.searchValue() ?? '';
+        if (searchTerm.trim()) {
+            vehicles = this.vehicleService.filterVehicles(searchTerm);
         }
 
         vehicles = this.vehicleService.sortVehicles(

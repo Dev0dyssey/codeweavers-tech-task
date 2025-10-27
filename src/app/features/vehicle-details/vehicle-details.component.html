@@ -1,0 +1,96 @@
+<div class="vehicle-details-container">
+    @if (notFound()) {
+        <mat-card class="error-card">
+            <mat-card-content class="error-content">
+                <mat-icon class="error-icon">error_outline</mat-icon>
+                <h2>Vehicle Not Found</h2>
+                <p>The vehicle you're looking for doesn't exist.</p>
+                <button mat-raised-button color="primary" (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                    Back to Vehicles
+                </button>
+            </mat-card-content>
+        </mat-card>
+    } @else {
+        <div class="details-layout">
+            <mat-card class="vehicle-info-card">
+                <mat-card-header>
+                    <div class="header-content">
+                        <button mat-icon-button (click)="goBack()" class="back-button">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <div class="header-text">
+                            <mat-card-title>{{ vehicle()!.year }} {{ vehicle()!.make }} {{ vehicle()!.model }}</mat-card-title>
+                            <mat-card-subtitle>{{ vehicle()!.colour }}</mat-card-subtitle>
+                        </div>
+                    </div>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="vehicle-details-grid">
+                        <div class="detail-item">
+                            <mat-icon>calendar_today</mat-icon>
+                            <div class="detail-content">
+                                <span class="detail-label">Year</span>
+                                <span class="detail-value">{{ vehicle()!.year }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <mat-icon>directions_car</mat-icon>
+                            <div class="detail-content">
+                                <span class="detail-label">Make</span>
+                                <span class="detail-value">{{ vehicle()!.make }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <mat-icon>label</mat-icon>
+                            <div class="detail-content">
+                                <span class="detail-label">Model</span>
+                                <span class="detail-value">{{ vehicle()!.model }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <mat-icon>palette</mat-icon>
+                            <div class="detail-content">
+                                <span class="detail-label">Colour</span>
+                                <span class="detail-value">{{ vehicle()!.colour }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <mat-icon>payments</mat-icon>
+                            <div class="detail-content">
+                                <span class="detail-label">Price</span>
+                                <span class="detail-value price">{{ vehicle()!.price | currency:'GBP':'symbol':'1.0-0' }}</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <mat-icon>speed</mat-icon>
+                            <div class="detail-content">
+                                <span class="detail-label">Mileage</span>
+                                <span class="detail-value">{{ vehicle()!.mileage | number }} miles</span>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="finance-card">
+                <mat-card-header>
+                    <mat-card-title>Finance Calculator</mat-card-title>
+                    <mat-card-subtitle>Calculate your monthly payment</mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div class="finance-placeholder">
+                        <p>Finance calculator component will be integrated here</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    }
+</div>
