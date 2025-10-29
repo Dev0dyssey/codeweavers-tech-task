@@ -1,6 +1,7 @@
 import { Component,computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { VehicleService } from '../../core/services/vehicle.service';
+import { Vehicle } from '../../shared/models/vehicle.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,12 +21,12 @@ export class VehicleDetailsComponent {
     private readonly vehicleService = inject(VehicleService);
 
     private readonly vehicleId = this.route.snapshot.paramMap.get('id') || '';
-    readonly vehicle = computed(() => {
+    readonly vehicle = computed<Vehicle | undefined>(() => {
         return this.vehicleService.getVehicleById(this.vehicleId);
     })
     
-    readonly notFound = computed(() => !this.vehicle());
-    readonly vehiclePrice = computed(() => this.vehicle()!.price);
+    readonly notFound = computed<boolean>(() => !this.vehicle());
+    readonly vehiclePrice = computed<number>(() => this.vehicle()?.price ?? 0);
 
     goBack(): void {
         this.router.navigate(['/vehicles']);
