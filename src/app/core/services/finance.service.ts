@@ -49,15 +49,4 @@ export class FinanceService {
     isValidTerm(term: number): boolean {
         return term > 0 && term <= 120;
     }
-
-    // formatCurrency(amount: number): string {
-    //     return new Intl.NumberFormat('en-GB', {
-    //         style: 'currency',
-    //         currency: 'GBP'
-    //     }).format(amount);
-    // }
-
-    // formatMonthlyPayment(amount: number): string {
-    //     return this.formatCurrency(amount);
-    // }
 }
