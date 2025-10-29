@@ -1,10 +1,6 @@
 import { computed, Injectable, signal } from "@angular/core";
 import { FinanceQuote, FinanceCalculationInputs, FinanceCalculationResult } from "../../shared/models/finance.model";
 
-/**
- * Service for calculating vehicle finance options.
- * Uses private signal + computed pattern for encapsulated state management.
- */
 @Injectable({
     providedIn: 'root'
 })
