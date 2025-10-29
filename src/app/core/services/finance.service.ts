@@ -33,8 +33,6 @@ export class FinanceService {
             inputs
         };
 
-        this.currentQuoteSignal.set(result);
-
         return result;
     }
 

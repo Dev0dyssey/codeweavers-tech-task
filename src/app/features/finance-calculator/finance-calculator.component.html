@@ -1,0 +1,88 @@
+<div class="finance-calculator">
+    <!-- Input Section -->
+    <div class="calculator-inputs">
+        <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Deposit (£)</mat-label>
+            <input 
+                matInput 
+                type="number"
+                [formControl]="depositControl"
+                (input)="onDepositInput($event)"
+                placeholder="Enter deposit amount"
+                [max]="vehiclePrice()"
+            />
+            <mat-icon matPrefix>payments</mat-icon>
+            @if (depositControl.invalid && depositControl.touched) {
+                <mat-error>Deposit must be between 0 and {{ vehiclePrice() | currency:'GBP':'symbol':'1.0-0' }}</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Term (months)</mat-label>
+            <input 
+                matInput 
+                type="number"
+                [formControl]="termControl"
+                placeholder="Enter term in months"
+                (input)="onTermInput($event)"
+                [max]="maxTerm()"
+            />
+            <mat-icon matPrefix>calendar_today</mat-icon>
+            @if (termControl.invalid && termControl.touched) {
+                <mat-error>Term must be between 1 and 120 months</mat-error>
+            }
+        </mat-form-field>
+    </div>
+
+    <!-- Results Section -->
+    @if (isValid() && financeQuote()) {
+        <div class="finance-results">
+            <h3 class="results-title">Finance Breakdown</h3>
+            
+            <div class="result-item">
+                <mat-icon>price_check</mat-icon>
+                <div class="result-content">
+                    <span class="result-label">On The Road Price</span>
+                    <span class="result-value">{{ financeQuote()!.quote.onTheRoadPrice | currency:'GBP':'symbol':'1.0-0' }}</span>
+                </div>
+            </div>
+
+            <div class="result-item">
+                <mat-icon>account_balance</mat-icon>
+                <div class="result-content">
+                    <span class="result-label">Total Deposit</span>
+                    <span class="result-value">{{ financeQuote()!.quote.totalDeposit | currency:'GBP':'symbol':'1.0-0' }}</span>
+                </div>
+            </div>
+
+            <div class="result-item">
+                <mat-icon>credit_card</mat-icon>
+                <div class="result-content">
+                    <span class="result-label">Total Amount of Credit</span>
+                    <span class="result-value">{{ financeQuote()!.quote.totalAmountOfCredit | currency:'GBP':'symbol':'1.0-0' }}</span>
+                </div>
+            </div>
+
+            <div class="result-item">
+                <mat-icon>event</mat-icon>
+                <div class="result-content">
+                    <span class="result-label">Number of Monthly Payments</span>
+                    <span class="result-value">{{ financeQuote()!.quote.numberOfMonthlyPayments }}</span>
+                </div>
+            </div>
+
+            <div class="result-item highlight">
+                <mat-icon>payment</mat-icon>
+                <div class="result-content">
+                    <span class="result-label">Monthly Payment</span>
+                    <span class="result-value monthly-payment">{{ financeQuote()!.quote.monthlyPayment | currency:'GBP':'symbol':'1.2-2' }}</span>
+                </div>
+            </div>
+        </div>
+    } @else if (hasErrors()) {
+        <div class="error-message">
+            <mat-icon>info</mat-icon>
+            <p>Please enter valid deposit and term values to calculate finance options.</p>
+        </div>
+    }
+</div>

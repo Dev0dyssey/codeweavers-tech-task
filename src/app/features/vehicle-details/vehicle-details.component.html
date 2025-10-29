@@ -86,9 +86,7 @@
                 </mat-card-header>
 
                 <mat-card-content>
-                    <div class="finance-placeholder">
-                        <p>Finance calculator component will be integrated here</p>
-                    </div>
+                    <app-finance-calculator [vehiclePrice]="vehiclePrice() || 0"></app-finance-calculator>
                 </mat-card-content>
             </mat-card>
         </div>
