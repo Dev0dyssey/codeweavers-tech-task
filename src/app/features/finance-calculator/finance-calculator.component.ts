@@ -2,7 +2,7 @@ import { Component, computed, inject, signal, ChangeDetectionStrategy, input, ef
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FinanceService } from '../../core/services/finance.service';
-import { FinanceCalculationInputs, FinanceCalculationResult } from '../../shared/models/finance.model';
+import { FinanceCalculationResult } from '../../shared/models/finance.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -61,6 +61,11 @@ export class FinanceCalculatorComponent {
     private clampInputValue(event: Event, control: FormControl<number | null>, min: number, max: number): void {
         const input = event.target as HTMLInputElement;
         let value = Number(input.value);
+
+        if(input.value === '' || input.value === null) {
+            control.setValue(null);
+            return;
+        }
         
         if (isNaN(value)) return;
         
