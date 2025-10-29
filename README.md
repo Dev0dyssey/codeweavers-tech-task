@@ -1,59 +1,136 @@
-# CodeweaversTechTask
+# Vehicle Inventory & Finance Calculator
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+A modern Angular web application for browsing vehicle inventory and calculating finance options. Built with Angular 20, TypeScript, and Angular Material.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Architecture & Design Decisions](#architecture--design-decisions)
+- [Testing](#testing)
+- [Future Enhancements](#future-enhancements)
+
+---
+
+## 🎯 Overview
+
+This application provides a comprehensive vehicle browsing and financing experience, allowing users to browse vehicles, search and filter results, view detailed vehicle information, and calculate custom finance quotes.
+
+---
+
+## ✨ Features
+
+- Browse vehicle inventory with search and filtering capabilities
+- Sort vehicles by price, year, or mileage (ascending/descending)
+- View detailed vehicle information
+- Calculate finance quotes with customizable deposit and term options
+- Responsive design with modern UI/UX
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework**: Angular 20.3.0
+- **Language**: TypeScript 5.9.2
+- **UI Library**: Angular Material 20.2.10
+- **State Management**: Angular Signals (reactive primitives)
+- **Routing**: Angular Router with lazy-loaded components
+- **Forms**: Reactive Forms with validation
+- **Testing**: Jasmine & Karma
+
+---
+
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js**: v18.19.0+ or v20.11.0+ (LTS recommended, supports latest versions)
+- **npm**: v9.0.0+ (comes with Node.js)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-ng serve
+git clone <repository-url>
+cd codeweavers-tech-task
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 2. Install Dependencies
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 3. Start Development Server
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+The application will be available at `http://localhost:4200/`
 
-To build the project run:
+The app will automatically reload when you make changes to source files.
+
+### 4. Build for Production
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 💡 Decisions
+
+### Allowing user input on deposit and term
+
+Task stated the deposit values can be hardcoded, I decided to make them default and allow users to modify these. This more closely resembles real life use case. Max term of 120 is an arbitrarily chosen number and can be updated at any point.
+
+### Clamping the deposit and term values
+
+Aim is to prevent users being able to type in values that would break the logic, especially with deposit calculations. More robust validation is another option and can be discussed.
+
+---
+
+## 🧪 Testing
+
+Run unit tests with:
 
 ```bash
-ng test
+npm test
 ```
 
-## Running end-to-end tests
+Tests are written using **Jasmine** and run with **Karma** test runner.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 🔮 Future Enhancements
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Potential Features
+- [ ] API integration with real backend
+- [ ] Advanced filtering to allow multiple filters at once
+- [ ] Home Screen
+- [ ] User authentication
+- [ ] Visual and styling improvements
 
-## Additional Resources
+### Technical Improvements
+- [ ] E2E testing with Cypress or Playwright
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 📄 License
+
+This project was created as a technical assessment for Codeweavers.
+
+---
+
+**Built with ❤️ using Angular 20**
